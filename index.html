@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Especial ❤️</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container, .intro-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 400px;
+            text-align: center;
+        }
+        .quiz-container {
+            display: none;
+        }
+        h1, h2 {
+            color: #e63946;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background: #e63946;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #d62839;
+        }
+        p {
+            font-weight: bold;
+            color: #6a0572;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: 2px solid #e63946;
+            outline: none;
+            text-align: center;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #d62839;
+            box-shadow: 0px 0px 10px rgba(230, 57, 70, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-container" id="intro">
+        <h1>BIENVENIDA AL JUEGO DEL CALAMAR-TA</h1>
+        <p>A continuación te enfrentarás a 5 adivinanzas que pondrán a prueba nuestra relación.</p>
+        <p>Si aciertas las 5 se te desvelará la ubicación de tu regalo.</p>
+        <p>Pero date prisa, cada minuto que pasa, tu regalo corre más peligro...</p>
+        <p>Suerte.</p>
+        <button onclick="startQuiz()">Empezemos</button>
+    </div>
+    
+    <div class="quiz-container" id="quiz">
+        <h2 id="question">Pregunta aquí</h2>
+        <input type="text" id="answer" placeholder="Escribe tu respuesta">
+        <button onclick="checkAnswer()">Enviar</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "Aquí fue un primer momento, justo al lado de un lugar estupendo. Sabores exquisitos, un festín sin igual, donde siempre queremos volver a cenar.", answer: "Acro" },
+            { question: "Antes de conocernos, ya coincidíamos aquí, su nombre está justo al entrar, solo tienes que mirar.", answer: "UNIVERSIDAD DE EXTREMADURA" },
+            { question: "La primera vez no salió tan bien, pero después volvimos y fue fetén. En invierno hace mucho frío y verano mucho calor. Sólo quiero un número...", answer: "47" },
+            { question: "Aquí te pedí salir y dijiste que sí, el italiano de al lado... solo estaba ahí.", answer: "Boccaccio" },
+            { question: "El nombre de un sitio donde lo hemos pasado muy bien. Te doy una pista: Luz y sal.", answer: "Solymar" }
+        ];
+
+        let currentQuestion = 0;
+        
+        function startQuiz() {
+            document.getElementById("intro").style.display = "none";
+            document.getElementById("quiz").style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            document.getElementById("question").innerText = questions[currentQuestion].question;
+            document.getElementById("answer").value = "";
+            document.getElementById("message").innerText = "";
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim();
+            if (userAnswer.toLowerCase() === questions[currentQuestion].answer.toLowerCase()) {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    document.querySelector(".quiz-container").innerHTML = "<h2>¡Felicidades, has superado el reto! ❤️</h2><p>Tu regalo siempre más cerca de lo que imaginabas... en el bolsillo de la chaqueta de Andrés.</p>";
+                }
+            } else {
+                document.getElementById("message").innerText = "Ups, inténtalo de nuevo 😘";
+            }
+        }
+    </script>
+</body>
+</html>
